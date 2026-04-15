@@ -54,10 +54,10 @@ async function lookup() {
   const docsHtml =
     docs && docs.length
       ? `
-        <div style="margin-top:14px;">
-          <strong>My Documents</strong>
-          <div class="table-container" style="margin-top:10px;">
-            <table>
+        <div class="student-section">
+          <div class="student-section-title">Documents</div>
+          <div class="table-container">
+            <table class="student-table">
               <thead>
                 <tr><th>Type</th><th>File</th><th>Uploaded</th><th>Link</th></tr>
               </thead>
@@ -81,7 +81,7 @@ async function lookup() {
           </div>
         </div>
       `
-      : `<div style="margin-top:14px;"><span class="muted">No documents found.</span></div>`
+      : `<div class="student-section"><span class="muted">No documents found.</span></div>`
 
   const locationLabel = row.is_local
     ? 'Local'
@@ -89,26 +89,46 @@ async function lookup() {
       ? row.current_country
       : 'International'
 
+  const items = [
+    ['Course', row.course || '—'],
+    ['Graduation Year', row.graduation_year || '—'],
+    ['Employment', row.employment_status || '—'],
+    ['Company', row.current_company || '—'],
+    ['Position', row.current_position || '—'],
+    ['Location', locationLabel],
+    ['Email', row.email || '—'],
+    ['Contact', row.contact_number || '—'],
+  ]
+
   result.innerHTML = `
-    <div>
-      <strong>${escapeHtml(row.full_name || '—')}</strong>
-      <div class="muted">${escapeHtml(row.student_id || '—')}</div>
+    <div class="student-card">
+      <div class="student-header">
+        <div>
+          <div class="student-name">${escapeHtml(row.full_name || '—')}</div>
+          <div class="student-sub">${escapeHtml(row.student_id || '—')}</div>
+        </div>
+      </div>
+
+      <div class="student-section">
+        <div class="student-section-title">Profile details</div>
+        <div class="student-kv">
+          ${items
+            .map(
+              ([k, v]) => `
+              <div class="student-k">
+                ${escapeHtml(k)}
+              </div>
+              <div class="student-v">
+                ${escapeHtml(v)}
+              </div>
+            `,
+            )
+            .join('')}
+        </div>
+      </div>
+
+      ${docsHtml}
     </div>
-    <div style="margin-top:12px;">
-      <table>
-        <tbody>
-          <tr><th style="text-align:left; padding-right:10px;">Course</th><td>${escapeHtml(row.course || '—')}</td></tr>
-          <tr><th style="text-align:left; padding-right:10px;">Graduation Year</th><td>${escapeHtml(row.graduation_year || '—')}</td></tr>
-          <tr><th style="text-align:left; padding-right:10px;">Employment</th><td>${escapeHtml(row.employment_status || '—')}</td></tr>
-          <tr><th style="text-align:left; padding-right:10px;">Company</th><td>${escapeHtml(row.current_company || '—')}</td></tr>
-          <tr><th style="text-align:left; padding-right:10px;">Position</th><td>${escapeHtml(row.current_position || '—')}</td></tr>
-          <tr><th style="text-align:left; padding-right:10px;">Location</th><td>${escapeHtml(locationLabel)}</td></tr>
-          <tr><th style="text-align:left; padding-right:10px;">Email</th><td>${escapeHtml(row.email || '—')}</td></tr>
-          <tr><th style="text-align:left; padding-right:10px;">Contact</th><td>${escapeHtml(row.contact_number || '—')}</td></tr>
-        </tbody>
-      </table>
-    </div>
-    ${docsHtml}
   `
 }
 
