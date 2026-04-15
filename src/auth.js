@@ -144,13 +144,40 @@ document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
     document.getElementById('username')?.value?.trim() // backward-compat (older UI)
   const password = document.getElementById('password')?.value
 
-  if (role === 'student') {
-    alert('Student/Alumni access is via Sign up (email verification). Please use the Sign up link.')
+  if (!role || !email || (role !== 'student' && !password)) {
+    alert('Please fill in all fields')
     return
   }
 
-  if (!role || !email || !password) {
-    alert('Please fill in all fields')
+  // Student/Alumni: after registration, allow login by registered email (no email auth here).
+  if (role === 'student') {
+    const { data: alumni, error } = await supabase
+      .from('alumni')
+      .select('id, full_name, email')
+      .eq('email', email)
+      .limit(1)
+
+    if (error || !alumni || alumni.length === 0) {
+      alert('No alumni record found for this email. Please sign up first.')
+      return
+    }
+
+    const row = alumni[0]
+
+    localStorage.setItem(
+      SESSION_KEY,
+      JSON.stringify({
+        id: row.id,
+        username: row.email || email,
+        email: row.email || email,
+        full_name: row.full_name || '',
+        role: 'student',
+        department: null,
+        permissions: rolePermissions.student,
+      }),
+    )
+
+    window.location.href = roleDashboards.student
     return
   }
 
