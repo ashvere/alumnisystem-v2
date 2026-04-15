@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Director Dashboard - WVSU Alumni</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-brand">
+        <img class="brand-logo" src="/wvsulogo.png" alt="WVSU logo" />
+        <span>WVSU Alumni Tracker</span>
+      </div>
+      <div class="nav-links">
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="management.html">Management</a>
+        <button id="logoutBtn" class="nav-logout">Logout</button>
+      </div>
+    </nav>
+
+    <main class="dashboard-container">
+      <div class="stats-grid">
+        <div class="stat-card glass-card">
+          <div class="stat-top">
+            <div class="stat-icon" aria-hidden="true"><i data-lucide="users"></i></div>
+            <h3>Total Alumni</h3>
+          </div>
+          <p id="totalAlumni">0</p>
+        </div>
+        <div class="stat-card glass-card">
+          <div class="stat-top">
+            <div class="stat-icon" aria-hidden="true"><i data-lucide="briefcase-business"></i></div>
+            <h3>Employment Rate</h3>
+          </div>
+          <p id="employmentRate">0%</p>
+        </div>
+        <div class="stat-card glass-card">
+          <div class="stat-top">
+            <div class="stat-icon" aria-hidden="true"><i data-lucide="activity"></i></div>
+            <h3>Active Engagement</h3>
+          </div>
+          <p id="activeEngagement">0</p>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="chart-card glass-card">
+          <h3>Employment Status</h3>
+          <canvas id="employmentChart"></canvas>
+        </div>
+
+        <div class="chart-card glass-card">
+          <h3>Industry Distribution</h3>
+          <canvas id="industryChart"></canvas>
+        </div>
+
+        <div class="chart-card glass-card">
+          <h3>Local vs International</h3>
+          <canvas id="locationChart"></canvas>
+        </div>
+
+        <div class="chart-card glass-card">
+          <h3>Alumni per Graduation Year</h3>
+          <canvas id="yearlyChart"></canvas>
+        </div>
+      </div>
+
+      <div class="performance-section glass-card">
+        <h3>Program Performance Analytics</h3>
+        <div class="program-stats">
+          <div class="program-list" id="programList"></div>
+          <div class="top-performers" id="topPerformers"></div>
+        </div>
+      </div>
+
+      <div class="engagement-section glass-card">
+        <h3>Alumni Engagement Monitoring</h3>
+        <div class="engagement-stats">
+          <div class="engagement-card">
+            <span><i data-lucide="calendar-check" aria-hidden="true"></i> Events Attended</span>
+            <strong id="eventsAttended">0</strong>
+          </div>
+          <div class="engagement-card">
+            <span><i data-lucide="hand-heart" aria-hidden="true"></i> Donated</span>
+            <strong id="donatedCount">0</strong>
+          </div>
+          <div class="engagement-card">
+            <span><i data-lucide="handshake" aria-hidden="true"></i> Mentorship</span>
+            <strong id="mentorshipCount">0</strong>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="/src/charts.js"></script>
+  </body>
+</html>
+

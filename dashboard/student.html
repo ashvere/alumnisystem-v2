@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Dashboard - WVSU Alumni</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-brand">
+        <img class="brand-logo" src="/wvsulogo.png" alt="WVSU logo" />
+        <span>WVSU Alumni Tracker</span>
+      </div>
+      <div class="nav-links">
+        <a href="/dashboard/student.html" class="active">Dashboard</a>
+        <button id="logoutBtn" class="nav-logout">Logout</button>
+      </div>
+    </nav>
+
+    <main class="management-container">
+      <div class="action-bar">
+        <div>
+          <strong>My Alumni Record</strong>
+          <span class="muted" id="studentSubtitle"></span>
+        </div>
+      </div>
+
+      <div class="filters-bar glass-card">
+        <input
+          type="text"
+          id="studentIdLookup"
+          placeholder="Enter your Student ID (e.g., 2026-0001-PC)"
+        />
+        <button id="lookupBtn" class="btn-secondary" type="button">Find</button>
+      </div>
+
+      <div class="glass-card" style="padding: 18px; margin-top: 14px;">
+        <div id="studentResult">
+          <span class="muted">Enter your Student ID to view your record.</span>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="/src/auth.js"></script>
+    <script type="module" src="/src/student.js"></script>
+  </body>
+</html>
+

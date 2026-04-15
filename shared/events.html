@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Events - WVSU Alumni</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-brand">
+        <img class="brand-logo" src="/wvsulogo.png" alt="WVSU logo" />
+        <span>WVSU Alumni Tracker</span>
+      </div>
+      <div class="nav-links">
+        <a href="#" id="dashboardLink">Dashboard</a>
+        <a href="/shared/alumni-management.html">Management</a>
+        <a href="/shared/events.html" class="active">Events</a>
+        <button id="logoutBtn" class="nav-logout">Logout</button>
+      </div>
+    </nav>
+
+    <main class="management-container">
+      <div class="action-bar">
+        <div>
+          <strong id="eventsTitle">Events</strong>
+          <span class="muted" id="eventsSubtitle"></span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <button id="printEventsBtn" class="btn-report" type="button">
+            <i data-lucide="printer" aria-hidden="true"></i>
+            Print
+          </button>
+        </div>
+      </div>
+
+      <div class="filters-bar glass-card">
+        <input type="text" id="eventSearch" placeholder="Search events..." />
+        <button id="refreshEvents" class="btn-secondary" type="button">Refresh</button>
+      </div>
+
+      <div class="table-container glass-card">
+        <table id="eventsTable">
+          <thead id="eventsThead"></thead>
+          <tbody id="eventsTbody">
+            <tr><td>Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <script type="module" src="/src/auth.js"></script>
+    <script type="module" src="/src/events.js"></script>
+  </body>
+</html>
+

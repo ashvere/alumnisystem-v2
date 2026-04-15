@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OSA Dashboard - WVSU Alumni</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-brand">
+        <img class="brand-logo" src="/wvsulogo.png" alt="WVSU logo" />
+        <span>WVSU Alumni Tracker</span>
+      </div>
+      <div class="nav-links">
+        <a href="/dashboard/osa.html" class="active">Dashboard</a>
+        <a href="/shared/alumni-management.html">Management</a>
+        <button id="logoutBtn" class="nav-logout">Logout</button>
+      </div>
+    </nav>
+
+    <main class="dashboard-container">
+      <div class="stats-grid">
+        <div class="stat-card glass-card clickable-card" id="eventsCard" role="button" tabindex="0">
+          <div class="stat-top">
+            <div class="stat-icon" aria-hidden="true"><i data-lucide="calendar-check"></i></div>
+            <h3>Events Logged</h3>
+          </div>
+          <p id="eventsLogged">0</p>
+        </div>
+        <div class="stat-card glass-card clickable-card" id="donationsCard" role="button" tabindex="0">
+          <div class="stat-top">
+            <div class="stat-icon" aria-hidden="true"><i data-lucide="hand-heart"></i></div>
+            <h3>Donations Logged</h3>
+          </div>
+          <p id="donationsLogged">0</p>
+        </div>
+        <div class="stat-card glass-card clickable-card" id="mentorshipCard" role="button" tabindex="0">
+          <div class="stat-top">
+            <div class="stat-icon" aria-hidden="true"><i data-lucide="handshake"></i></div>
+            <h3>Mentorship Logged</h3>
+          </div>
+          <p id="mentorshipLogged">0</p>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="chart-card glass-card">
+          <h3>Engagement Overview</h3>
+          <canvas id="engagementChart"></canvas>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="/src/auth.js"></script>
+    <script type="module" src="/src/dashboard-limited.js"></script>
+  </body>
+</html>
+

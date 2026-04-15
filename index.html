@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WVSU Alumni System - Login</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="login-body">
+    <div class="login-container glass-card">
+      <div class="login-header">
+        <img class="login-logo" src="/wvsulogo.png" alt="WVSU logo" />
+        <h1>WVSU Alumni Tracking System</h1>
+        <p>Select your department to continue</p>
+      </div>
+
+      <form id="loginForm">
+        <div class="input-group">
+          <label>Select Role</label>
+          <select id="roleSelect" required>
+            <option value="">-- Select Department --</option>
+            <option value="director">School Director</option>
+            <option value="daa">Dean of Academic Affairs (DAA)</option>
+            <option value="osa">Office of Student Affairs (OSA)</option>
+            <option value="registrar">Registrar</option>
+            <option value="campus_admin">Campus Administrator</option>
+            <option value="department_head">Department Head</option>
+            <option value="student">Student</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="Enter your email" autocomplete="email" />
+        </div>
+
+        <div class="input-group">
+          <label>Password</label>
+          <div class="password-field">
+            <input type="password" id="password" placeholder="Enter password" />
+            <button
+              type="button"
+              id="togglePassword"
+              class="password-toggle"
+              aria-label="Show password"
+              aria-pressed="false"
+            >
+              <span class="password-toggle-icon" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary">Log in →</button>
+      </form>
+
+      <div style="margin-top: 14px;">
+        <a href="/shared/alumni-signup.html" class="signup-link">
+          Sign up
+        </a>
+      </div>
+    </div>
+
+    <script type="module" src="/src/auth.js"></script>
+    <script type="module" src="/src/login-ui.js"></script>
+  </body>
+</html>

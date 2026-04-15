@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alumni Management - WVSU</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-brand">
+        <img class="brand-logo" src="/wvsulogo.png" alt="WVSU logo" />
+        <span>WVSU Alumni Tracker</span>
+      </div>
+      <div class="nav-links">
+        <a href="#" id="dashboardLink">Dashboard</a>
+        <a href="/shared/alumni-management.html" class="active">Management</a>
+        <button id="logoutBtn" class="nav-logout">Logout</button>
+      </div>
+    </nav>
+
+    <main class="management-container">
+      <div class="action-bar" id="actionBar"></div>
+
+      <div class="filters-bar glass-card">
+        <select id="yearFilter"><option value="">All Years</option></select>
+        <select id="courseFilter"><option value="">All Courses</option></select>
+        <select id="employmentFilter">
+          <option value="">All Employment</option>
+          <option value="Employed">Employed</option>
+          <option value="Unemployed">Unemployed</option>
+          <option value="Self-Employed">Self-Employed</option>
+          <option value="Abroad">Abroad</option>
+          <option value="Further Studies">Further Studies</option>
+        </select>
+        <input type="text" id="searchInput" placeholder="Search by name or student ID..." />
+        <button id="resetFilters" class="btn-secondary">Reset</button>
+      </div>
+
+      <div class="table-container glass-card">
+        <table id="alumniTable">
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Name</th>
+              <th>Year</th>
+              <th>Course</th>
+              <th>Employment</th>
+              <th>Company</th>
+              <th>Position</th>
+              <th>Location</th>
+              <th>Photo</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="alumniTableBody">
+            <tr><td colspan="10">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagination" id="pagination"></div>
+    </main>
+
+    <div id="editModal" class="modal" aria-hidden="true">
+      <div class="modal-content glass-card">
+        <button class="modal-close" type="button" aria-label="Close edit modal">
+          <i data-lucide="x"></i>
+        </button>
+        <h2 id="editModalTitle">Edit Alumni Information</h2>
+        <form id="editAlumniForm">
+          <input type="hidden" id="editAlumniId" />
+          <div class="form-row">
+            <div class="form-group">
+              <label>Student ID</label>
+              <input type="text" id="editStudentId" readonly />
+            </div>
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" id="editFullName" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Graduation Year</label>
+              <input type="number" id="editGradYear" required />
+            </div>
+            <div class="form-group">
+              <label>Course</label>
+              <input type="text" id="editCourse" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Employment Status</label>
+              <select id="editEmploymentStatus">
+                <option value="Employed">Employed</option>
+                <option value="Unemployed">Unemployed</option>
+                <option value="Self-Employed">Self-Employed</option>
+                <option value="Abroad">Abroad</option>
+                <option value="Further Studies">Further Studies</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Current Company</label>
+              <input type="text" id="editCompany" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Current Position</label>
+              <input type="text" id="editPosition" />
+            </div>
+            <div class="form-group">
+              <label>Location</label>
+              <select id="editIsLocal">
+                <option value="true">Local (Philippines)</option>
+                <option value="false">International</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" id="editEmail" />
+            </div>
+            <div class="form-group">
+              <label>Contact Number</label>
+              <input type="text" id="editContact" />
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-secondary" id="cancelEdit">Cancel</button>
+            <button type="submit" class="btn-primary">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="uploadModal" class="modal" aria-hidden="true">
+      <div class="modal-content glass-card">
+        <button class="modal-close-upload" type="button" aria-label="Close upload modal">
+          <i data-lucide="x"></i>
+        </button>
+        <h2>Upload Document</h2>
+        <form id="uploadDocumentForm" enctype="multipart/form-data">
+          <input type="hidden" id="uploadAlumniId" />
+          <div class="form-row">
+            <div class="form-group">
+              <label>Document Type</label>
+              <select id="documentType" required>
+                <option value="Photo">Photo</option>
+                <option value="IUIS">IUIS</option>
+                <option value="Transcript">Transcript</option>
+                <option value="Diploma">Diploma</option>
+                <option value="Employment Certificate">Employment Certificate</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Academic Year</label>
+              <input type="text" id="academicYear" placeholder="e.g., 2023-2024" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Semester</label>
+              <select id="semester">
+                <option value="1st">1st</option>
+                <option value="2nd">2nd</option>
+                <option value="Summer">Summer</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Select File</label>
+              <input
+                type="file"
+                id="documentFile"
+                accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.webp"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn-secondary" id="cancelUpload">Cancel</button>
+            <button type="submit" class="btn-primary" id="uploadSubmitBtn">Upload</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script type="module" src="/src/auth.js"></script>
+    <script type="module" src="/src/alumni-crud.js"></script>
+  </body>
+</html>
+
