@@ -41,8 +41,6 @@ function protectRoutes() {
   }
 }
 
-protectRoutes()
-
 function setupProfileMenu() {
   const logoutBtn = document.getElementById('logoutBtn')
   if (!logoutBtn) return
@@ -95,8 +93,6 @@ function setupProfileMenu() {
   logoutBtn.replaceWith(wrap)
 }
 
-setupProfileMenu()
-
 async function tryHydrateStudentSession() {
   const user = getCurrentUser()
   if (user) return
@@ -125,7 +121,18 @@ async function tryHydrateStudentSession() {
   }
 }
 
-tryHydrateStudentSession().catch(() => {})
+async function initAuth() {
+  // Important: hydrate Supabase Auth session BEFORE route protection,
+  // otherwise verified email users get redirected to login immediately.
+  await tryHydrateStudentSession()
+  protectRoutes()
+  setupProfileMenu()
+}
+
+initAuth().catch(() => {
+  protectRoutes()
+  setupProfileMenu()
+})
 
 // Login handler (only runs on index.html)
 document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
