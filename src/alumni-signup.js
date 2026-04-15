@@ -192,9 +192,9 @@ async function completeSignup(e) {
     return
   }
 
-  setStatus('Sign up complete. Redirecting to login…')
+  setStatus('Sign up complete. Opening your profile…')
   window.setTimeout(() => {
-    window.location.href = '/index.html'
+    window.location.href = '/dashboard/student.html'
   }, 900)
 }
 
