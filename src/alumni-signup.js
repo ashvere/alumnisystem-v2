@@ -180,7 +180,11 @@ async function completeSignup(e) {
   }
 
   // Create alumni row (requires table + permissions/RLS)
-  const { error } = await supabase.from('alumni').insert(payload)
+  const { data: inserted, error } = await supabase
+    .from('alumni')
+    .insert(payload)
+    .select('id, full_name, email')
+    .limit(1)
 
   if (submitBtn) {
     submitBtn.disabled = false
@@ -190,6 +194,28 @@ async function completeSignup(e) {
   if (error) {
     setStatus(`Failed to create alumni record: ${escapeHtml(error.message)}`, true)
     return
+  }
+
+  const row = inserted?.[0]
+  if (row?.id) {
+    // Create local session so student dashboard doesn't redirect to login.
+    localStorage.setItem(
+      'currentUser',
+      JSON.stringify({
+        id: row.id,
+        username: row.email || email,
+        email: row.email || email,
+        full_name: row.full_name || '',
+        role: 'student',
+        department: null,
+        permissions: {
+          canEdit: false,
+          canUpload: false,
+          canViewAll: false,
+          canGenerateReports: false,
+        },
+      }),
+    )
   }
 
   setStatus('Sign up complete. Opening your profile…')
