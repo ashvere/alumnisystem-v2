@@ -12,7 +12,6 @@ export default defineConfig({
 
         // multi-role pages
         director: resolve(__dirname, 'dashboard/director.html'),
-        daa: resolve(__dirname, 'dashboard/daa.html'),
         osa: resolve(__dirname, 'dashboard/osa.html'),
         registrar: resolve(__dirname, 'dashboard/registrar.html'),
         campusAdmin: resolve(__dirname, 'dashboard/campus-admin.html'),

@@ -10,10 +10,14 @@ function escapeHtml(value) {
 }
 
 function setStatus(msg, isError = false) {
-  const el = document.getElementById('verifyStatus')
-  if (!el) return
-  el.style.color = isError ? '#b91c1c' : ''
-  el.innerHTML = msg
+  const targets = [document.getElementById('verifyStatus'), document.getElementById('signupStatus')].filter(
+    Boolean,
+  )
+  if (targets.length === 0) return
+  targets.forEach((el) => {
+    el.style.color = isError ? '#b91c1c' : ''
+    el.innerHTML = msg
+  })
 }
 
 function setStep(step) {
@@ -188,7 +192,10 @@ async function completeSignup(e) {
     return
   }
 
-  setStatus('Sign up complete. You may now close this page or go back to login.')
+  setStatus('Sign up complete. Redirecting to login…')
+  window.setTimeout(() => {
+    window.location.href = '/index.html'
+  }, 900)
 }
 
 document.getElementById('sendVerifyBtn')?.addEventListener('click', sendVerification)

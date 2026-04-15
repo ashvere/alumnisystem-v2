@@ -6,7 +6,6 @@ const SESSION_KEY = 'currentUser'
 
 const roleHeadFallbackName = {
   osa: 'Harrace Gem A. Caver',
-  daa: 'Nove D. Jalandoni',
   director: 'Rosie Jane P. Siosan',
   registrar: 'Eden A. Gadugdug',
   campus_admin: 'Raymund B. Gemora',

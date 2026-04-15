@@ -1,6 +1,5 @@
 export const roleDashboards = {
   director: '/dashboard/director.html',
-  daa: '/dashboard/daa.html',
   osa: '/dashboard/osa.html',
   registrar: '/dashboard/registrar.html',
   campus_admin: '/dashboard/campus-admin.html',
@@ -15,7 +14,6 @@ export const rolePermissions = {
     canViewAll: true,
     canGenerateReports: true,
   },
-  daa: { canEdit: true, canUpload: true, canViewAll: true, canGenerateReports: true },
   osa: { canEdit: true, canUpload: true, canViewAll: true, canGenerateReports: true },
   registrar: {
     canEdit: true,

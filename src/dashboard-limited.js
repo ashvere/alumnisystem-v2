@@ -5,7 +5,6 @@ import { createIcons, icons } from 'lucide'
 
 function page() {
   const p = window.location.pathname
-  if (p.endsWith('/dashboard/daa.html')) return 'daa'
   if (p.endsWith('/dashboard/osa.html')) return 'osa'
   if (p.endsWith('/dashboard/registrar.html')) return 'registrar'
   if (p.endsWith('/dashboard/campus-admin.html')) return 'campus_admin'
@@ -81,33 +80,6 @@ async function loadYearlyChart(filterCourse) {
     },
     options: { responsive: true },
   })
-}
-
-async function initDAA() {
-  createIcons({ icons })
-  const { data: alumni } = await supabase.from('alumni').select('id, course')
-  const { data: docs } = await supabase.from('alumni_documents').select('id')
-
-  document.getElementById('totalAlumni').textContent = alumni?.length || 0
-  document.getElementById('programsTracked').textContent = new Set((alumni || []).map((a) => a.course)).size
-  document.getElementById('docsCount').textContent = docs?.length || 0
-
-  await loadYearlyChart()
-  await loadEmploymentChart()
-
-  const wire = (id, to) => {
-    const el = document.getElementById(id)
-    if (!el) return
-    const go = () => (window.location.href = to)
-    el.addEventListener('click', go)
-    el.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') go()
-    })
-  }
-
-  wire('daaTotalAlumniCard', '/shared/alumni-management.html')
-  wire('daaProgramsCard', '/shared/alumni-management.html')
-  wire('daaDocsCard', '/shared/documents.html')
 }
 
 async function initOSA() {
@@ -251,9 +223,6 @@ async function init() {
   }
 
   switch (page()) {
-    case 'daa':
-      await initDAA()
-      break
     case 'osa':
       await initOSA()
       break
