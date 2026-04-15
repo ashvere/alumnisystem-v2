@@ -144,23 +144,13 @@ document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
     document.getElementById('username')?.value?.trim() // backward-compat (older UI)
   const password = document.getElementById('password')?.value
 
-  if (!role || !email || (role !== 'student' && !password)) {
-    alert('Please fill in all fields')
+  if (role === 'student') {
+    alert('Student/Alumni access is via Sign up (email verification). Please use the Sign up link.')
     return
   }
 
-  // Student: send magic link to personal email (Supabase Auth)
-  if (role === 'student') {
-    const emailRedirectTo = `${window.location.origin}/dashboard/student.html`
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: { emailRedirectTo },
-    })
-    if (error) {
-      alert(`Failed to send authentication email: ${error.message}`)
-      return
-    }
-    alert('Authentication link sent. Please check your email inbox (and spam).')
+  if (!role || !email || !password) {
+    alert('Please fill in all fields')
     return
   }
 
